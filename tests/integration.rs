@@ -148,3 +148,13 @@ async fn access_apache_issues() {
         .await
         .unwrap();
 }
+
+/// Read the workog in an issue we know containing some.
+#[tokio::test]
+async fn access_worklogs() {
+    let instance = apache_jira();
+    let issue = instance.issue("ZOOKEEPER-4761").await.unwrap();
+    let worklog = issue.fields.worklog.unwrap();
+    assert_eq!(worklog.total.unwrap() >= 5, true);
+    assert_eq!(worklog.worklogs.len() >= 5, true);
+}

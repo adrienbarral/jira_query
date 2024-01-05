@@ -94,6 +94,7 @@ pub struct Fields {
     pub security: Option<Security>,
     #[serde(flatten)]
     pub extra: Value,
+    pub worklog: Option<WorklogPage>,
 }
 
 /// The representation of a Jira user account.
@@ -429,4 +430,34 @@ pub struct Security {
     pub self_link: String,
     #[serde(flatten)]
     pub extra: Value,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct WorklogPage {
+    #[serde(rename = "startAt")]
+    pub start_at: u16,
+    #[serde(rename = "maxResults")]
+    pub max_results: u16,
+    pub total: Option<u16>,
+    pub worklogs: Vec<Worklog>
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Worklog {
+    pub author: User,
+    #[serde(rename = "updateAuthor")]
+    pub update_author: User, 
+    pub comment: String, 
+    pub created: DateTime<Utc>,
+    pub updated: Option<DateTime<Utc>>,
+    pub visibility: Option<Visibility>,
+    pub started: DateTime<Utc>,
+    #[serde(rename = "timeSpent")]
+    pub time_spent: String,
+    #[serde(rename = "timeSpentSeconds")]
+    // In the Jira JSON schema, this field is an "integer". I guess that it can't be negative in a real world situation.
+    pub time_spent_seconds: u32,
+    pub id: String, 
+    #[serde(rename = "issueId")]
+    pub issue_id: String
 }
