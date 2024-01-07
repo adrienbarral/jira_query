@@ -35,7 +35,7 @@ pub use issue_model::{
     AvatarUrls, Comment, Comments, Component, CondensedFields, CondensedIssue, Fields, Issue,
     IssueLink, IssueLinkType, IssueType, LinkedIssue, LinkedIssueFields, Priority, Progress,
     Project, ProjectCategory, Resolution, Status, StatusCategory, User, Version, Visibility, Votes,
-    Watches,
+    Watches, Worklog, WorklogPage
 };
 // Re-export JSON Value because it's an integral part of the issue model.
 pub use serde_json::Value;
